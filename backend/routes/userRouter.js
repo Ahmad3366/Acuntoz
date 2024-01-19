@@ -7,7 +7,7 @@ const requireAuth = require('../middlewares/requireAuth')
 router.get('/users', requireAuth, getUsers)
 
 router.post('/login', loginUser)
-router.post('/signup', signupUser)
+router.post('/signup', requireAuth, signupUser)
 
 router.get('/users/:id', requireAuth, getUser)
 router.put('/users/:id', updateUser)
