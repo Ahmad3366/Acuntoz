@@ -9,18 +9,18 @@ const sendEmail = require('../utils/sendEmail')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
+    // username: {
+    //     type: String,
+    //     default: '',
+    //     unique: true
+    // },
     firstName: {
         type: String,
-        default: ''
+        required: true
     },
     lastName: {
         type: String,
-        default: ''
+        required: true
     },
     email: {
         type: String,
@@ -31,9 +31,13 @@ const userSchema = new Schema({
         type: String,
         default: ''
     },
-    company: {
+    businessName: {
         type: String,
-        default: ''
+        required: true
+    },
+    businessEmail: {
+        type: String,
+        required: true
     },
     designation: {
         type: String,
@@ -54,14 +58,17 @@ const userSchema = new Schema({
 }, {timestamps: true})
 
 // static signup method
-userSchema.statics.signup = async function (username, email, password) {
+userSchema.statics.signup = async function (businessName, businessEmail ,firstName, lastName, email, password) {
 
-    if (!email || !password || !username) {
+    if (!businessName || !businessEmail || !firstName || !lastName || !email || !password) {
         throw Error('all fields must be filled')
     }
 
     if (!validator.isEmail(email)) {
         throw Error('email is not valid')
+    }
+    if (!validator.isEmail(businessEmail)) {
+        throw Error('business email is not valid')
     }
     if (!validator.isStrongPassword(password)) {
         throw Error('password not strong enough')
@@ -79,7 +86,7 @@ userSchema.statics.signup = async function (username, email, password) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({username, email, password: hash })
+    const user = await this.create({businessEmail, businessName, firstName, lastName, email, password: hash })
 
     const token = await new Token({
         userId: user._id,

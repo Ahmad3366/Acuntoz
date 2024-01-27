@@ -9,7 +9,7 @@ router.get('/users', requireAuth, getUsers)
 router.post('/login', loginUser)
 router.post('/signup', requireAuth, signupUser)
 
-router.get('/users/:id', requireAuth, getUser)
+router.get('/users/:id', getUser)
 router.put('/users/:id', updateUser)
 router.delete('/users/:id', requireAuth, deleteUser)
 

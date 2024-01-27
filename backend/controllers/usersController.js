@@ -32,10 +32,10 @@ const loginUser = async (req, res) => {
 
 
 const signupUser = async (req, res) => {
-    const { username, email, password } = req.body
+    const { businessName, businessEmail ,firstName, lastName, email, password } = req.body
 
     try {
-        await User.signup(username, email, password)
+        await User.signup(businessName, businessEmail ,firstName, lastName, email, password)
 
         // const token = createToken(user._id)
         res.status(201).json({ mess: 'An email sent to your account please verify' })
@@ -85,7 +85,7 @@ const updateUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const user = await User.findOne({ _id: req.params.id })
+        const user = await User.findOne({ _id: req.params.id }).select('-password')
         res.status(200).json(user)
     } catch (error) {
         res.status(400).json({error: "error"})
@@ -97,7 +97,7 @@ const deleteUser = async (req, res) => {
         const user = await User.findOneAndDelete({ _id: req.params.id })
         res.status(200).json({message: 'deleted successfully', user})
     } catch (error) {
-        res.status(400).json({error: "error"})
+        res.status(400).json({error: "could not find email"})
     }
 }
 
