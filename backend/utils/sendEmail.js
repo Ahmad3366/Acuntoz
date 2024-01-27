@@ -10,7 +10,7 @@ module.exports = async (email, subject, text) => {
             secure: Boolean(process.env.SECURE),
             auth: {
                 user: process.env.USER,
-                pass: `${process.env.PASSWORD}`
+                pass: "jedf xjmd tpvn uzzq"
             }
         })
 
