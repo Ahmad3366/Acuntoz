@@ -125,7 +125,7 @@ userSchema.statics.login = async function(email, password) {
                 userId: user._id,
                 token: crypto.randomBytes(32).toString('hex')
             }).save()
-            const url = `${process.env.BASE_URL}api/user/${user._id}/verify/${token.token}`
+            const url = `${process.env.BASE_URL}/api/user/${user._id}/verify/${token.token}`
             await sendEmail(user.email, 'verify email', url)
         }
         throw Error('An email sent to your account please verify')
