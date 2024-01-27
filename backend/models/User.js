@@ -9,11 +9,11 @@ const sendEmail = require('../utils/sendEmail')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-    // username: {
-    //     type: String,
-    //     default: '',
-    //     unique: true
-    // },
+    username: {
+         type: String,
+         default: '',
+         // unique: true
+     },
     firstName: {
         type: String,
         required: true
