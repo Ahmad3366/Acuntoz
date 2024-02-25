@@ -11,10 +11,10 @@ const getContracts = async (req, res) => {
 
 const newContract = async (req, res) => {
     try {
-        await Contract.create(req.body)
-        res.status(200).json({message: 'New Contract created successfully'})
+        const contract = await Contract.create(req.body)
+        res.status(200).json({message: 'New contract created successfully', contract})
     } catch (error) {
-        res.status(400).json({error: 'somthing went wrong'})
+        res.status(400).json({error: error.message})
     }
 }
 

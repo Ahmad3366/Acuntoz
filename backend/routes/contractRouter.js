@@ -4,8 +4,8 @@ const router = express.Router()
 const { newContract, getContracts, deleteContract } = require('../controllers/contractController')
 const requireAuth = require('../middlewares/requireAuth')
 
-router.get('/getContracts', requireAuth, getContracts)
-router.post('/newContract', requireAuth, newContract)
+router.get('/', requireAuth, getContracts)
+router.post('/create', requireAuth, newContract)
 router.delete('/:id', requireAuth, deleteContract)
 
 module.exports = router
